@@ -3,8 +3,6 @@ import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import Image from "next/image";
 
-export const metadata = { title: "Contact — ViralSpark" };
-
 export default function Page() {
   const [status, setStatus] = useState<string | null>(null);
 
