@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 interface ServiceCardProps {
   icon: string;
   title: string;
@@ -17,31 +15,35 @@ export default function ServiceCard({
   price,
   features,
 }: ServiceCardProps) {
-  const handleWhatsAppClick = () => {
-    const message = `Hi, I’m interested in your ${title} service (${price}). Can you share more details?`;
-    window.open(`https://wa.me/918888888888?text=${encodeURIComponent(message)}`, "_blank");
-  };
-
   return (
-    <div className="p-6 rounded-2xl shadow-md bg-white hover:shadow-lg transition">
-      <div className="text-3xl">{icon}</div>
-      <h3 className="font-bold text-lg mt-2">{title}</h3>
-      <p className="text-gray-600">{description}</p>
-      <p className="text-indigo-600 font-semibold mt-2">{price}</p>
+    <div className="card p-6 flex flex-col border border-gray-200 rounded-2xl shadow-md hover:shadow-lg transition">
+      {/* Icon */}
+      <div className="text-4xl">{icon}</div>
+
+      {/* Title */}
+      <div className="mt-3 font-bold text-xl">{title}</div>
+
+      {/* Description */}
+      <p className="mt-2 text-gray-600">{description}</p>
 
       {/* Features */}
-      <ul className="mt-3 text-sm text-gray-600 list-disc pl-5 space-y-1">
-        {features.map((f, i) => (
-          <li key={i}>{f}</li>
-        ))}
-      </ul>
+      {features && (
+        <ul className="mt-3 text-sm text-gray-600 list-disc pl-5 space-y-1">
+          {features.map((f, i) => (
+            <li key={i}>{f}</li>
+          ))}
+        </ul>
+      )}
 
-      {/* WhatsApp Button */}
+      {/* Price */}
+      <div className="mt-4 text-xl font-bold text-primary">{price}</div>
+
+      {/* Buy Button */}
       <button
-        onClick={handleWhatsAppClick}
-        className="mt-4 w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+        className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+        onClick={() => alert(`Checkout coming soon for ${title}`)}
       >
-        Chat on WhatsApp
+        Buy Now
       </button>
     </div>
   );
