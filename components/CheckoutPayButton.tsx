@@ -11,16 +11,19 @@ export default function CheckoutPayButton({ price }: CheckoutPayButtonProps) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const numericPrice = parseInt(price.replace(/[^\d]/g, ""), 10) * 100;
+  // Convert price string to number in subunits
+  const numericPrice = parseInt(price?.replace(/[^\d]/g, "") || "0", 10) * 100;
 
   const handlePayment = () => {
     setLoading(true);
 
-    // Dummy payment simulation
+    // Simulate payment process (dummy)
     setTimeout(() => {
       const success = Math.random() > 0.3; // 70% chance success
-      if (success) router.push("/payment-success");
-      else router.push("/payment-cancel");
+
+      // Next.js 14 typed router fix
+      if (success) router.push("/payment-success" as string);
+      else router.push("/payment-cancel" as string);
     }, 1500);
   };
 
