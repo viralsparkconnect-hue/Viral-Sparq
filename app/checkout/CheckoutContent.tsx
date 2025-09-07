@@ -1,11 +1,12 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import CheckoutPayButton from "@/components/CheckoutPayButton";
 
 export default function CheckoutContent() {
   const searchParams = useSearchParams();
-  const title = searchParams.get("title");
-  const price = searchParams.get("price");
+  const title = searchParams.get("title") || "Service";
+  const price = searchParams.get("price") || "₹0";
 
   return (
     <section className="section">
@@ -17,13 +18,10 @@ export default function CheckoutContent() {
           <h2 className="text-xl font-bold">{title}</h2>
           <p className="mt-2 text-lg text-primary">{price}</p>
 
-          <button
-            onClick={() => alert("Payment gateway integration coming soon 🚀")}
-            className="mt-6 w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"
-          >
-            Proceed to Pay
-          </button>
+          {/* Dummy payment button */}
+          <CheckoutPayButton price={price} />
 
+          {/* Back button */}
           <button
             onClick={() => history.back()}
             className="mt-3 w-full bg-gray-200 text-gray-800 py-2 rounded-lg hover:bg-gray-300 transition"
