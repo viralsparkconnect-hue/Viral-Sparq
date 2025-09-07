@@ -8,54 +8,97 @@ export default function Page() {
   return (
     <>
       <div>
-        <section className="section">
-          <div className="container grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <h1 className="h1">
-                Digital Marketing that <span className="text-primary">scales</span>. Websites that <span className="text-accent">perform</span>.
+        {/* ✅ Hero Section */}
+        <section className="relative h-screen flex items-center bg-gradient-to-r from-primary/10 via-white to-accent/10">
+          <div className="container grid md:grid-cols-2 gap-12 items-center">
+            {/* Left content */}
+            <div className="text-center md:text-left">
+              <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
+                Digital Marketing that{" "}
+                <span className="text-primary">Scales</span>. <br />
+                Websites that <span className="text-accent">Perform</span>.
               </h1>
-              <p className="p mt-5">
-                We blend SEO, ads, and social with conversion‑first Next.js builds. Less fluff, more results.
+              <p className="mt-6 text-lg text-gray-700 max-w-xl mx-auto md:mx-0">
+                We blend SEO, ads, and social with conversion-first Next.js builds.
+                Less fluff, more results for your business growth.
               </p>
-              <div className="mt-6 flex gap-4">
-                <Link href="/contact" className="btn btn-primary">Get a Proposal</Link>
-                <Link href="/services" className="btn btn-secondary">Explore Services</Link>
+              <div className="mt-8 flex flex-wrap gap-4 justify-center md:justify-start">
+                <Link href="/contact" className="btn btn-primary shadow-lg">
+                  🚀 Get a Proposal
+                </Link>
+                <Link href="/services" className="btn btn-secondary">
+                  Explore Services
+                </Link>
               </div>
             </div>
-            <div className="relative aspect-[3/2] rounded-2xl overflow-hidden shadow-lg">
-              <Image src="/images/hero.jpg" alt="Hero" fill className="object-cover"/>
+
+            {/* Right image */}
+            <div className="relative w-full h-80 md:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+              <Image
+                src="/images/hero.jpg"
+                alt="Hero"
+                fill
+                priority
+                className="object-cover"
+              />
             </div>
+          </div>
+
+          {/* Scroll Indicator */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-gray-500 animate-bounce">
+            ↓ Scroll
           </div>
         </section>
 
+        {/* ✅ Services Section */}
         <section className="section bg-white">
           <div className="container">
-            <h2 className="h2 text-center">What we do</h2>
-            <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {services.map(s => (
-                <div key={s.title} className="card">
-                  <div className="text-primary text-2xl font-bold">{s.icon}</div>
-                  <div className="mt-3 font-bold text-lg">{s.title}</div>
-                  <p className="mt-2 text-gray-600">{s.description}</p>
+            <h2 className="h2 text-center">What We Do</h2>
+            <p className="text-center text-gray-600 mt-2 max-w-2xl mx-auto">
+              End-to-end digital solutions designed to help your brand grow online.
+            </p>
+            <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {services.map((s) => (
+                <div
+                  key={s.title}
+                  className="card hover:shadow-xl transition p-6 text-center"
+                >
+                  <div className="text-primary text-4xl">{s.icon}</div>
+                  <div className="mt-4 font-bold text-xl">{s.title}</div>
+                  <p className="mt-3 text-gray-600">{s.description}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="section">
+        {/* ✅ Portfolio Section */}
+        <section className="section bg-gray-50">
           <div className="container">
             <div className="flex items-end justify-between">
-              <h2 className="h2">Featured work</h2>
-              <Link href="/portfolio" className="text-primary font-semibold">View all →</Link>
+              <h2 className="h2">Featured Work</h2>
+              <Link
+                href="/portfolio"
+                className="text-primary font-semibold hover:underline"
+              >
+                View all →
+              </Link>
             </div>
-            <div className="mt-8 grid md:grid-cols-3 gap-6">
-              {projects.map(p => (
-                <div key={p.title} className="card">
+            <div className="mt-10 grid md:grid-cols-3 gap-8">
+              {projects.map((p) => (
+                <div
+                  key={p.title}
+                  className="card group hover:shadow-xl transition"
+                >
                   <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
-                    <Image src={p.image} alt={p.title} fill className="object-cover"/>
+                    <Image
+                      src={p.image}
+                      alt={p.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition duration-500"
+                    />
                   </div>
-                  <div className="mt-4 font-bold">{p.title}</div>
+                  <div className="mt-4 font-bold text-lg">{p.title}</div>
                   <p className="text-gray-600 mt-1">{p.description}</p>
                 </div>
               ))}
@@ -63,30 +106,46 @@ export default function Page() {
           </div>
         </section>
 
+        {/* ✅ Blog Section */}
         <section className="section bg-white">
           <div className="container">
             <div className="flex items-end justify-between">
-              <h2 className="h2">From the blog</h2>
-              <Link href="/blog" className="text-primary font-semibold">Read more →</Link>
+              <h2 className="h2">From the Blog</h2>
+              <Link
+                href="/blog"
+                className="text-primary font-semibold hover:underline"
+              >
+                Read more →
+              </Link>
             </div>
-            <div className="mt-8 grid md:grid-cols-3 gap-6">
-              {posts.map(b => (
-                <Link key={b.slug} href={`/blog/${b.slug}`} className="card block">
+            <div className="mt-10 grid md:grid-cols-3 gap-8">
+              {posts.map((b) => (
+                <Link
+                  key={b.slug}
+                  href={`/blog/${b.slug}`}
+                  className="card block hover:shadow-lg transition"
+                >
                   <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
-                    <Image src={b.image} alt={b.title} fill className="object-cover"/>
+                    <Image
+                      src={b.image}
+                      alt={b.title}
+                      fill
+                      className="object-cover hover:scale-105 transition duration-500"
+                    />
                   </div>
-                  <div className="mt-4 font-bold">{b.title}</div>
-                  <p className="text-gray-600 mt-1">{b.excerpt}</p>
+                  <div className="mt-4 font-bold text-lg">{b.title}</div>
+                  <p className="text-gray-600 mt-2">{b.excerpt}</p>
                 </Link>
               ))}
             </div>
           </div>
         </section>
 
+        {/* ✅ CTA Section */}
         <CTA />
       </div>
 
-      {/* ✅ Floating WhatsApp button */}
+      {/* ✅ Floating WhatsApp Button */}
       <WhatsAppButton />
     </>
   );
