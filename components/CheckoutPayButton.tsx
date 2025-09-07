@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 interface CheckoutPayButtonProps {
   price: string; // e.g., "15000"
@@ -9,7 +8,6 @@ interface CheckoutPayButtonProps {
 
 export default function CheckoutPayButton({ price }: CheckoutPayButtonProps) {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   // Convert price string to number in subunits
   const numericPrice = parseInt(price?.replace(/[^\d]/g, "") || "0", 10) * 100;
@@ -21,9 +19,9 @@ export default function CheckoutPayButton({ price }: CheckoutPayButtonProps) {
     setTimeout(() => {
       const success = Math.random() > 0.3; // 70% chance success
 
-      // Next.js 14 typed router fix
-      if (success) router.push("/payment-success" as string);
-      else router.push("/payment-cancel" as string);
+      // Use window.location.href to bypass Next.js 14 typed routes
+      if (success) window.location.href = "/payment-success";
+      else window.location.href = "/payment-cancel";
     }, 1500);
   };
 
