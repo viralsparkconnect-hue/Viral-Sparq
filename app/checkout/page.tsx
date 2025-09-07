@@ -17,7 +17,7 @@ export default function CheckoutPage() {
           <h2 className="text-xl font-bold">{title}</h2>
           <p className="mt-2 text-lg text-primary">{price}</p>
 
-          {/* Dummy Payment Button */}
+          {/* ✅ Dummy payment button for now */}
           <button
             onClick={() => alert("Payment gateway integration coming soon 🚀")}
             className="mt-6 w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"
@@ -25,7 +25,7 @@ export default function CheckoutPage() {
             Proceed to Pay
           </button>
 
-          {/* Back button */}
+          {/* ✅ Back button */}
           <button
             onClick={() => history.back()}
             className="mt-3 w-full bg-gray-200 text-gray-800 py-2 rounded-lg hover:bg-gray-300 transition"
