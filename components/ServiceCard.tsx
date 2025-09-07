@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 interface ServiceCardProps {
   icon: string;
   title: string;
@@ -15,6 +17,14 @@ export default function ServiceCard({
   price,
   features,
 }: ServiceCardProps) {
+  const router = useRouter();
+
+  const handleCheckout = () => {
+    router.push(
+      `/checkout?title=${encodeURIComponent(title)}&price=${encodeURIComponent(price)}`
+    );
+  };
+
   return (
     <div className="card p-6 flex flex-col border border-gray-200 rounded-2xl shadow-md hover:shadow-lg transition">
       {/* Icon */}
@@ -38,10 +48,10 @@ export default function ServiceCard({
       {/* Price */}
       <div className="mt-4 text-xl font-bold text-primary">{price}</div>
 
-      {/* Buy Button */}
+      {/* ✅ Buy Button → redirect to checkout */}
       <button
         className="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-        onClick={() => alert(`Checkout coming soon for ${title}`)}
+        onClick={handleCheckout}
       >
         Buy Now
       </button>
