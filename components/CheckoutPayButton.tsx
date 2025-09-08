@@ -3,26 +3,42 @@
 import { useState } from "react";
 
 interface CheckoutPayButtonProps {
-  price: string; // e.g., "15000"
+  title: string;
+  price: string; // final discounted price
+  customerData: {
+    name: string;
+    email: string;
+    mobile: string;
+    address: string;
+    coupon: string;
+  };
 }
 
-export default function CheckoutPayButton({ price }: CheckoutPayButtonProps) {
+export default function CheckoutPayButton({ title, price, customerData }: CheckoutPayButtonProps) {
   const [loading, setLoading] = useState(false);
 
-  // Convert price string to number in subunits
-  const numericPrice = parseInt(price?.replace(/[^\d]/g, "") || "0", 10) * 100;
+  const handlePayment = async () => {
+    if (!customerData.name || !customerData.email || !customerData.mobile || !customerData.address) {
+      alert("Please fill all required fields before proceeding.");
+      return;
+    }
 
-  const handlePayment = () => {
     setLoading(true);
 
-    // Simulate payment process (dummy)
-    setTimeout(() => {
-      const success = Math.random() > 0.3; // 70% chance success
+    const res = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, price, ...customerData }),
+    });
 
-      // Use window.location.href to bypass Next.js 14 typed routes
-      if (success) window.location.href = "/payment-success";
-      else window.location.href = "/payment-cancel";
-    }, 1500);
+    const data = await res.json();
+
+    if (data.url) {
+      window.location.href = data.url; // Redirect to Stripe Checkout
+    } else {
+      alert("Failed to create Stripe session");
+      setLoading(false);
+    }
   };
 
   return (
@@ -31,7 +47,7 @@ export default function CheckoutPayButton({ price }: CheckoutPayButtonProps) {
       disabled={loading}
       className="mt-6 w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"
     >
-      {loading ? "Processing..." : `Proceed to Pay ₹${numericPrice / 100}`}
+      {loading ? "Redirecting..." : "Proceed to Pay"}
     </button>
   );
 }
